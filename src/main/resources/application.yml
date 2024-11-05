@@ -1,0 +1,23 @@
+spring:
+  config:
+    import: env.properties
+  application:
+    name: man_gym
+  datasource:
+    url: jdbc:postgresql://ese-ecommerce-ese-ecommerce.g.aivencloud.com:21636/gym?ssl=require
+    username: avnadmin
+    password: ${POSTGRESQL_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  thymeleaf:
+    cache: false
