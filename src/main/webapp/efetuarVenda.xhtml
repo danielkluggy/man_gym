@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Efetuar Venda</title>
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <h:outputStylesheet library="css" name="formulario.css" />
+</h:head>
+
+<h:body>
+    <div class="navbar navbar-inverse navbar-inner navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/inicio">Academia</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbaracademia">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/administracao.xhtml">Painel Administrativo</a></li>
+                    <li><a href="/logout">Fazer Logoff</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h1>Efetuar Venda</h1>
+
+    <h:form id="frmVenda" class="formulario">
+        <div class="col-xs-12 col-lg-6">
+            <div class="form-group">
+                <h:outputLabel value="Finalidade da Venda" />
+                <h:selectOneMenu class="form-control" value="#{vendaController.venda.fimVenda}">
+                    <f:selectItem itemValue= "1" itemLabel="Aluno" />
+                    <f:selectItem itemValue= "2" itemLabel="Visitante" />
+                </h:selectOneMenu>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Tipo de Venda" />
+                <h:selectOneMenu class="form-control" value="#{vendaController.venda.tipoVenda}">
+                    <f:selectItem itemValue= "1" itemLabel="Bar" />
+                    <f:selectItem itemValue="2" itemLabel="Loja" />
+                </h:selectOneMenu>
+            </div>
+            
+			<div class="form-group">
+				<h:outputLabel value="Produto" />
+				<h:selectOneMenu class="form-control" value="#{vendaController.venda.produto}">
+					<f:selectItem noSelectionOption="true" itemValue=""
+						itemLabel="Selecione um produto" />
+					<f:selectItems value="#{vendaController.produtos}" />
+				</h:selectOneMenu>
+			</div>
+
+			<div class="form-group">
+                <h:outputLabel value="Quantidade" />
+                <h:inputText class="form-control" value="#{vendaController.venda.quantidade}">
+                    <f:ajax event="blur" render="totalField" />
+                </h:inputText>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Preço Unitário" />
+                <h:inputText class="form-control" value="#{vendaController.venda.precoUnitario}">
+                    <f:ajax event="blur" render="totalField" />
+                </h:inputText>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Total" />
+                <h:outputText id="totalField" value="#{vendaController.venda.quantidade * vendaController.venda.precoUnitario}" />
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Tipo de Pagamento" />
+                <h:selectOneMenu class="form-control" value="#{vendaController.venda.tipoPagamento}">
+                    <f:selectItem itemValue="1" itemLabel="À Vista" />
+                    <f:selectItem itemValue="2" itemLabel="A Prazo" />
+                </h:selectOneMenu>
+            </div>
+
+            <div class="form-group">
+					<h:outputLabel value="Cliente" />
+
+					<h:selectOneMenu class="form-control" value="#{vendaController.venda.cliente}"
+						converter="#{clienteConverter}">
+						<f:selectItem noSelectionOption="true" itemValue="null"
+							itemLabel=".: Selecione o Cliente :. " />
+						<f:selectItems value="#{vendaController.clientes}" var="cliente1"
+							itemLabel="#{cliente1.nome}" />
+					</h:selectOneMenu>
+				</div>
+
+            <div class="form-group">
+                <h:commandButton value="Efetuar Venda" action="#{vendaController.salvarVenda}" class="btn btn-primary">
+                    <f:ajax render="vendasTable" />
+                </h:commandButton>
+            </div>
+        </div>
+
+        <!-- Tabela de Vendas Realizadas -->
+        <div class="col-xs-12 col-lg-12">
+            <h2>Vendas Realizadas</h2>
+            <div class="table-responsive">
+                <h:dataTable value="#{vendaController.vendas}" var="venda" id="vendasTable" class="table table-striped">
+                    <h:column>
+                        <f:facet name="header">Produto</f:facet>
+                        <h:outputText value="#{venda.produto}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Preço Unitário</f:facet>
+                        <h:outputText value="#{venda.precoUnitario}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Quantidade</f:facet>
+                        <h:outputText value="#{venda.quantidade}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Total</f:facet>
+                        <h:outputText value="#{venda.quantidade * venda.precoUnitario}" />
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>
