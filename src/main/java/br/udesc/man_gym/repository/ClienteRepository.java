@@ -15,6 +15,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	@Query("select c from Cliente c where email like :email")
 	public Cliente buscaPorEmail(@Param("email") String email);
+
+	@Query("select c from Cliente c where nome = :nome")
+	public Cliente buscaPorNomeCliente(@Param("nome") String nome);
 	
 	@Query("select c from Cliente c")
 	public List<Cliente> buscarTodos();

@@ -83,6 +83,10 @@ public class ClienteController {
 		this.cli = cli;
 	}
 
+	public Cliente getClienteNome(String nome) {
+		return this.clienteDao.buscaPorNomeCliente(nome);
+	}
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -94,5 +98,6 @@ public class ClienteController {
 	public boolean isModoAlterar() {
 		return modoAlterar;
 	}
+
 
 }
