@@ -1,0 +1,128 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Vendas</title>
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<!-- Bootstrap -->
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="formulario.css" />
+	<h:outputStylesheet library="css" name="bootstrap-datetimepicker.min.css" />
+
+
+</h:head>
+<h:body>
+	<!-- INicio da NAVBAR -->
+	<div class="navbar navbar-inverse navbar-inner navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display/ toggle faz agrupamento do menu para ser vizualizado no celular-->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/inicio">Academia</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-lg"></i> <span
+								class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Minha Conta</a></li>
+							<li><a href="administracao.xhtml">Administração</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Efetuar LogOff</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+    <h1>PRODUTOS</h1>
+        <h:form id="frmProduto">
+        <div class="jumbotron">
+            <h1>Aluno(a)</h1>
+            <div>
+                <h:inputText id="searchInput"
+                 class="form-control" placeholder="Digite o nome do cliente" />
+
+                <h:commandButton value="Buscar">
+
+                <f:ajax execute="searchInput" render="@all"
+                listener="#{vendaController.filtroVendasCliente}" />
+                </h:commandButton>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="table-responsive">
+                <h:dataTable value="#{vendaController.vendasFiltradas}" var="venda" id="venda" class="table">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Vencimento" />
+                        </f:facet>
+                        <h:outputLabel value="#{venda.data}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Valor Unitário" />
+                        </f:facet>
+                        <h:outputLabel value="#{venda.precoUnitario}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Quantidade" />
+                        </f:facet>
+                        <h:outputLabel value="#{venda.quantidade}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Descrição" />
+                        </f:facet>
+                        <h:outputLabel value="#{venda.produto}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Total a Pagar" />
+                        </f:facet>
+                        <h:outputLabel value="#{venda.totalPagamento}" />
+                    </h:column>
+                    <h:column>
+        <f:facet name="header">
+            <h:outputLabel value="Pagar" />
+        </f:facet>
+        <!-- Botão para realizar a venda -->
+        <h:commandButton value="Selecionar" 
+                         action="#{vendaController.realizarVendaSelecionadas(venda)}" 
+                         class="btn btn-success"
+                         icon="fa fa-check" />
+    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+        <h:outputLabel id="valorVenda" value="#{vendaController.valorVenda}" />
+        <h:commandButton value="Realizar Venda" 
+                         action="#{vendaController.concluirVenda()}" 
+                         class="btn btn-success"
+                         icon="fa fa-check" />
+    </h:form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/resources/js/bootstrap.min.js"></script>
+    <script src="/resources/js/fontawesome-all.min.js"></script>
+    <script src="/resources/js/main.js"></script>
+</h:body>
+
+</html>
