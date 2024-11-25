@@ -1,0 +1,214 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Questionários</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="formulario.css" />
+	<h:outputStylesheet library="css" name="font-awesome.min.css" />
+</h:head>
+<h:body>
+	<div class="navbar navbar-inverse navbar-inner navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/inicio">Academia</a>
+			</div>
+
+			<div class="collapse navbar-collapse navbaracademia " id="navbaracademia">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a class="ul-fonte" href="/administracao.xhtml">Painel
+							Administrativo</a></li>
+					<li><a class="ul-fonte" href="/logout">Fazer Logoff</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<h1>Questionário</h1>
+	<div class="container">
+		<h:form id="frmQuestionario" class="formulario">
+			<div class="form-group pull-right">
+				<h:outputText rendered="#{questionarioController.mensagem!=null}" class="alert alert-info"
+					value="#{questionarioController.mensagem}" />
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-lg-12">
+				<div class="form-group">
+					<h:outputLabel value="Cliente" />
+					<h:selectOneMenu class="form-control" value="#{questionarioController.questionario.cliente}"
+						converter="#{clienteConverter}">
+						<f:selectItem noSelectionOption="true" itemValue="null"
+							itemLabel=".: Selecione o Cliente :. " />
+						<f:selectItems value="#{questionarioController.clientes}" var="cliente1"
+							itemLabel="#{cliente1.nome}" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<div class="form-group">
+						<h:outputLabel value="Tem plano de saúde?" />
+						<h:selectOneMenu class="form-control"
+							value="#{questionarioController.questionario.isPlanoSaude}">
+							<f:selectItem itemValue="Selecione" itemLabel="Selecione" />
+							<f:selectItem itemValue="Sim" itemLabel="Sim" />
+							<f:selectItem itemValue="Não" itemLabel="Não" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<div class="form-group">
+						<h:outputLabel value="Qual?" />
+						<h:inputText class="form-control" value="#{questionarioController.questionario.planoSaude}" />
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<div class="form-group">
+						<h:outputLabel value="Pratica outro esporte?" />
+						<h:selectOneMenu class="form-control"
+							value="#{questionarioController.questionario.isOutroEsporte}">
+							<f:selectItem itemValue="Selecione" itemLabel="Selecione" />
+							<f:selectItem itemValue="Sim" itemLabel="Sim" />
+							<f:selectItem itemValue="Não" itemLabel="Não" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<div class="form-group">
+						<h:outputLabel value="Qual?" />
+						<h:inputText class="form-control" value="#{questionarioController.questionario.outroEsporte}" />
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<div class="form-group">
+						<h:outputLabel value="Por que faz academia?" />
+						<h:selectOneMenu class="form-control"
+							value="#{questionarioController.questionario.motivoAcademia}">
+							<f:selectItem itemValue="Selecione" itemLabel="Selecione" />
+							<f:selectItem itemValue="Aprender a nadar" itemLabel="Aprender a nadar" />
+							<f:selectItem itemValue="Treinar" itemLabel="Treinar" />
+							<f:selectItem itemValue="Doença" itemLabel="Doença" />
+							<f:selectItem itemValue="Manter a forma" itemLabel="Manter a forma" />
+							<f:selectItem itemValue="Coluna" itemLabel="Coluna" />
+							<f:selectItem itemValue="Gestante" itemLabel="Gestante" />
+							<f:selectItem itemValue="Obesidade" itemLabel="Obesidade" />
+							<f:selectItem itemValue="Conselho médico" itemLabel="Conselho médico" />
+							<f:selectItem itemValue="Outro" itemLabel="Outro" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<div class="form-group">
+						<h:outputLabel value="Como soube da academia?" />
+						<h:selectOneMenu class="form-control" value="#{questionarioController.questionario.comoSoube}">
+							<f:selectItem itemValue="Selecione" itemLabel="Selecione" />
+							<f:selectItem itemValue="Instagram" itemLabel="Instagram" />
+							<f:selectItem itemValue="Tiktok" itemLabel="Tiktok" />
+							<f:selectItem itemValue="Jornal" itemLabel="Jornal" />
+							<f:selectItem itemValue="Outdoor" itemLabel="Outdoor" />
+							<f:selectItem itemValue="Placa" itemLabel="Placa" />
+							<f:selectItem itemValue="Internet" itemLabel="Internet" />
+							<f:selectItem itemValue="Cartaz" itemLabel="Cartaz" />
+							<f:selectItem itemValue="Panfleto" itemLabel="Panfleto" />
+							<f:selectItem itemValue="Passando em frente" itemLabel="Passando em frente" />
+							<f:selectItem itemValue="Amigos" itemLabel="Amigos" />
+							<f:selectItem itemValue="Outros" itemLabel="Outros" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="table-responsive">
+					<h:dataTable value="#{questionarioController.questionarios}" class="table" var="questionario"
+						id="dtQuestionario">
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Aluno" />
+							</f:facet>
+							<h:outputLabel value="#{questionario.cliente.nome}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Plano de saúde" />
+							</f:facet>
+							<h:outputLabel value="#{questionario.isPlanoSaude}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Outro esporte" />
+							</f:facet>
+							<h:outputLabel value="#{questionario.isOutroEsporte}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Motivo" />
+							</f:facet>
+							<h:outputLabel value="#{questionario.motivoAcademia}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Como soube" />
+							</f:facet>
+							<h:outputLabel value="#{questionario.comoSoube}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="opções" />
+							</f:facet>
+							<h:commandButton action="#{questionarioController.excluir(questionario)}" title="Excluir"
+								onclick="return window.confirm('Tem Certeza?')" class="btn btn-danger" value="Excluir">
+
+								<f:ajax render="frmQuestionario" />
+							</h:commandButton>
+
+							<h:commandButton action="#{questionarioController.alterarQuestionario(questionario)}"
+								title="Editar" value="Editar" class="btn btn-default">
+								<f:ajax render="frmQuestionario" />
+							</h:commandButton>
+						</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+
+
+			<div class="col-xs-12 col-lg-12">
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<h:commandButton value="Cadastrar Questionário"
+						action="#{questionarioController.salvarQuestionario()}" class="btn btn-default btn-lg">
+						<f:ajax execute="frmQuestionario" render="@all" />
+					</h:commandButton>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6">
+					<h:commandButton rendered="#{questionarioController.modoEdicao}"
+						action="#{questionarioController.cancelar()}" value="Cancelar" class="btn btn-danger btn-lg">
+						<f:ajax render="frmQuestionario" />
+					</h:commandButton>
+
+
+				</div>
+			</div>
+		</h:form>
+	</div>
+	<script src="resources/js/jquery-3.2.1.min.js" />
+	<script src="resources/js/bootstrap.min.js" />
+	<script src="resources/js/fontawesome-all.min.js" />
+	<script src="resources/js/main.js" />
+</h:body>
+
+</html>
